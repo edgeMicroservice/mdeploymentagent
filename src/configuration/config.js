@@ -15,8 +15,7 @@ const pack = require('../../package.json');
  *
  */
 module.exports = (() => {
-  const configuration = setConfig(pack, {
-  });
+  const configuration = setConfig(pack);
 
   return configuration;
 })();

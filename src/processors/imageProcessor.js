@@ -11,23 +11,25 @@ const deployImage = (imageDetails, correlationId) => {
   })
     .then((result) => {
       const filePath = `./${service.name}-${service.version}.tar`;
-      fs.outputFileSync(filePath, result);
-      const options = {
-        uri: deploymentLink.url,
-        headers: {
-          ...deploymentLink.headers,
-        },
-        method: deploymentLink.method,
-        formData: {
-          image: {
-            value: fs.createReadStream(filePath),
-            options: {
-              filename: `${service.name}-${service.version}.tar`,
+      return fs.outputFile(filePath, result)
+        .then(() => {
+          const options = {
+            uri: deploymentLink.url,
+            headers: {
+              ...deploymentLink.headers,
             },
-          },
-        },
-      };
-      return options;
+            method: deploymentLink.method,
+            formData: {
+              image: {
+                value: fs.createReadStream(filePath),
+                options: {
+                  filename: `${service.name}-${service.version}.tar`,
+                },
+              },
+            },
+          };
+          return options;
+        });
     })
     .catch((err) => {
       throw getRichError('System', 'cannot fetch image from the imageLink', { imageLink, service }, err, false, correlationId);
