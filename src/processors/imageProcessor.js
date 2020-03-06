@@ -35,7 +35,7 @@ const deployImage = (imageDetails, correlationId) => {
       throw getRichError('System', 'cannot fetch image from the imageLink', { imageLink, service }, err, false, correlationId);
     })
     .then(rp)
-    .then((result) => JSON.parse(result))
+    .then(JSON.parse)
     .catch((err) => {
       throw getRichError('System', 'cannot deploy image to deploymentLink', { deploymentLink, service }, err, false, correlationId);
     });
