@@ -1,0 +1,69 @@
+{
+  "name": "mimik_mdeploymentagent",
+  "version": "1.0.0",
+  "swaggerFile": {
+    "version": "1.0.0",
+    "account": "mimik"
+  },
+  "type": "mdeploymentagent",
+  "description": "The purpose of this service is to deploy edge services by fetching from a url and posting on edgeSDK.",
+  "main": "./src/index.js",
+  "scripts": {
+    "lint": "gulp lint",
+    "docs": "gulp docs",
+    "pretest": "node ./local/testSetup.js",
+    "test": "nyc gulp test",
+    "prestart": "node ./local/setup.js",
+    "start": "sh server-start.sh",
+    "commit-ready": "gulp docs; gulp lint; npm run test"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "gulp docs; gulp lint",
+      "commit-msg": "node ./local/commitMsgCheck",
+      "pre-push": "npm run commit-ready"
+    }
+  },
+  "Authors": [
+    {
+      "name": "Kevin",
+      "email": "kevin.toor@mimik.com"
+    }
+  ],
+  "license": "MIT",
+  "keywords": [
+    "swagger",
+    "mdeploymentagent",
+    "engine"
+  ],
+  "private": true,
+  "dependencies": {
+    "@bananabread/dynamosizer": "1.5.1",
+    "@bananabread/configuration": "2.1.2",
+    "@bananabread/init": "3.1.1",
+    "@bananabread/response-helper": "2.3.1",
+    "@bananabread/sumologic-winston-logger": "1.5.1",
+    "@bananabread/swagger-helper": "2.2.1",
+    "bluebird": "3.7.2",
+    "connect": "3.7.0",
+    "fs-extra": "8.1.0",
+    "lodash": "4.17.15",
+    "moment": "2.24.0",
+    "request": "2.88.2",
+    "request-promise": "4.2.5",
+    "url": "0.11.0",
+    "uuid": "7.0.2"
+  },
+  "devDependencies": {
+    "@bananabread/git-hooks": "~1.5.0",
+    "@bananabread/local": "~2.1.1",
+    "eslint-plugin-import": "2.20.1",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-react": "7.19.0",
+    "gulp": "4.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/mimiktech/mdeploymentagent"
+  }
+}
