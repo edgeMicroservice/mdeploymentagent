@@ -41,14 +41,11 @@ const deployImage = (imageDetails, correlationId) => {
       throw getRichError('System', 'cannot fetch image from the imageLink', { imageLink, service }, err, false, correlationId);
     })
     .then(rp)
-    .then((deploymentStatus) => {
-      removeImageFile();
-      return JSON.parse(deploymentStatus);
-    })
+    .then(JSON.parse)
     .catch((err) => {
-      removeImageFile();
       throw getRichError('System', 'cannot deploy image to deploymentLink', { deploymentLink, service }, err, false, correlationId);
-    });
+    })
+    .finally(removeImageFile());
 };
 
 module.exports = {
