@@ -2,6 +2,7 @@ const rp = require('request-promise');
 const fs = require('fs-extra');
 const uuid = require('uuid');
 
+const logger = require('@bananabread/sumologic-winston-logger');
 const { getRichError } = require('@bananabread/response-helper');
 
 const deployImage = (imageDetails, correlationId) => {
@@ -11,7 +12,7 @@ const deployImage = (imageDetails, correlationId) => {
 
   const removeImageFile = () => fs.remove(filePath)
     .catch((err) => {
-      throw getRichError('System', 'cannot remove image from file directory', { filePath }, err, false, correlationId);
+      logger.error('cannot remove image from file directory', { err, filePath }, correlationId);
     });
 
   return rp({
@@ -45,7 +46,7 @@ const deployImage = (imageDetails, correlationId) => {
     .catch((err) => {
       throw getRichError('System', 'cannot deploy image to deploymentLink', { deploymentLink, service }, err, false, correlationId);
     })
-    .finally(removeImageFile());
+    .finally(removeImageFile);
 };
 
 module.exports = {
