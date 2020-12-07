@@ -1,11 +1,14 @@
 {
-  "name": "mimik_mdeploymentagent",
+  "name": "mdeploymentagent",
   "version": "1.0.0",
   "swaggerFile": {
-    "version": "1.0.0",
-    "account": "mimik"
+    "version": "1.1.0",
+    "account": "mimik",
+    "name": "mdeploymentagent"
   },
-  "type": "mdeploymentagent",
+  "mimik": {
+    "type": "mdeploymentagent"
+  },
   "description": "The purpose of this service is to deploy edge services by fetching from a url and posting on edgeSDK.",
   "main": "./src/index.js",
   "scripts": {
@@ -38,28 +41,28 @@
   ],
   "private": true,
   "dependencies": {
-    "@bananabread/dynamosizer": "1.5.1",
-    "@bananabread/configuration": "2.1.2",
-    "@bananabread/init": "3.1.1",
-    "@bananabread/response-helper": "2.3.1",
-    "@bananabread/sumologic-winston-logger": "1.5.1",
-    "@bananabread/swagger-helper": "2.2.1",
+    "@bananabread/dynamosizer": "1.6.3",
+    "@bananabread/configuration": "4.0.0",
+    "@bananabread/init": "3.2.1",
+    "@bananabread/response-helper": "2.4.0",
+    "@bananabread/sumologic-winston-logger": "1.5.2",
+    "@bananabread/swagger-helper": "2.2.3",
     "bluebird": "3.7.2",
     "connect": "3.7.0",
-    "fs-extra": "8.1.0",
-    "lodash": "4.17.15",
-    "moment": "2.24.0",
+    "fs-extra": "9.0.1",
+    "lodash": "4.17.20",
+    "moment": "2.27.0",
     "request": "2.88.2",
-    "request-promise": "4.2.5",
+    "request-promise": "4.2.6",
     "url": "0.11.0",
-    "uuid": "7.0.2"
+    "uuid": "8.3.0"
   },
   "devDependencies": {
     "@bananabread/git-hooks": "~1.5.0",
-    "@bananabread/local": "~2.1.1",
-    "eslint-plugin-import": "2.20.1",
-    "eslint-plugin-jsx-a11y": "6.2.3",
-    "eslint-plugin-react": "7.19.0",
+    "@bananabread/local": "~4.0.0",
+    "eslint-plugin-import": "2.22.0",
+    "eslint-plugin-jsx-a11y": "6.3.1",
+    "eslint-plugin-react": "7.20.6",
     "gulp": "4.0.2"
   },
   "repository": {
