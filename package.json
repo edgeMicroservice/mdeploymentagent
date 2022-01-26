@@ -1,8 +1,8 @@
 {
   "name": "mdeploymentagent",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "swaggerFile": {
-    "version": "1.1.0",
+    "version": "1.2.0",
     "account": "mimik",
     "name": "mdeploymentagent"
   },
@@ -18,12 +18,14 @@
     "test": "nyc gulp test",
     "prestart": "node ./local/setup.js",
     "start": "sh server-start.sh",
-    "commit-ready": "gulp docs; gulp lint; npm run test"
+    "commit-ready": "gulp docs; gulp lint; npm run test",
+    "prepare": "husky install",
+    "postinstall": "node ./local/dotFiles.js"
   },
   "husky": {
     "hooks": {
       "pre-commit": "gulp docs; gulp lint",
-      "commit-msg": "node ./local/commitMsgCheck",
+      "commit-msg": "node ./local/commitMsgCheck $1",
       "pre-push": "npm run commit-ready"
     }
   },
@@ -31,6 +33,10 @@
     {
       "name": "Kevin",
       "email": "kevin.toor@mimik.com"
+    },
+    {
+      "name": "Sunny",
+      "email": "sunny.mansuri@mimik.com"
     }
   ],
   "license": "MIT",
@@ -41,29 +47,23 @@
   ],
   "private": true,
   "dependencies": {
-    "@bananabread/dynamosizer": "1.6.3",
-    "@bananabread/configuration": "4.0.0",
-    "@bananabread/init": "3.2.1",
-    "@bananabread/response-helper": "2.4.0",
-    "@bananabread/sumologic-winston-logger": "1.5.2",
-    "@bananabread/swagger-helper": "2.2.3",
-    "bluebird": "3.7.2",
+    "@mimik/cluster": "2.4.0",
+    "@mimik/configuration": "4.4.8",
+    "@mimik/init": "3.6.0",
+    "@mimik/response-helper": "2.6.0",
+    "@mimik/sumologic-winston-logger": "1.6.6",
+    "@mimik/swagger-helper": "2.5.0",
+    "axios": "0.25.0",
     "connect": "3.7.0",
-    "fs-extra": "9.0.1",
-    "lodash": "4.17.20",
-    "moment": "2.27.0",
-    "request": "2.88.2",
-    "request-promise": "4.2.6",
-    "url": "0.11.0",
-    "uuid": "8.3.0"
+    "form-data": "4.0.0",
+    "fs-extra": "10.0.0",
+    "lodash": "4.17.21",
+    "uuid": "8.3.2"
   },
   "devDependencies": {
-    "@bananabread/git-hooks": "~1.5.0",
-    "@bananabread/local": "~4.0.0",
-    "eslint-plugin-import": "2.22.0",
-    "eslint-plugin-jsx-a11y": "6.3.1",
-    "eslint-plugin-react": "7.20.6",
-    "gulp": "4.0.2"
+    "@mimik/local": "~4.4.5",
+    "gulp": "4.0.2",
+    "husky": "7.0.4"
   },
   "repository": {
     "type": "git",

@@ -1,6 +1,6 @@
 {
 	"SERVER_PORT": 8084,
-	// "SERVER_ID": "mDS-12345",
+	// "SERVER_ID": "mDA-12345",
 	// "DEBUG": "swagger-tools:middleware.*",
 	// -- logs
 	"LOG_LEVEL": "debug",
