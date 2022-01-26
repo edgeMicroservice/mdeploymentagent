@@ -10,12 +10,14 @@
 	// "LOG_MODE": "all",
 	// "LOG_MODE": "awsS3",
 	// "standAlone": "yes",
+	// "MST_SET": "off",
 	// -- providers
 	// "LOCATION_PROVIDER": "http://ip-api.com/json",
 	// "IP_LOCATION_PROVIDER": "http://ip_api.com/json",
 	// "LOCATION_PROVIDER_KEY": "---a key---",
 	// "CLOUD_PROVIDER": "AWS",
 	// -- security
+	"API_KEYS": "---api-key--",
 	"oauthImplicitNeeded": "no",
 	"mIDNeeded": "no",
 	// "SERVER_SECURITY_SET": "off",
