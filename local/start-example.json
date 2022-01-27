@@ -10,7 +10,7 @@
 	// "LOG_MODE": "all",
 	// "LOG_MODE": "awsS3",
 	// "standAlone": "yes",
-	// "MST_SET": "off",
+	"MST_SET": "off",
 	// -- providers
 	// "LOCATION_PROVIDER": "http://ip-api.com/json",
 	// "IP_LOCATION_PROVIDER": "http://ip_api.com/json",

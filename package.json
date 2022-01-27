@@ -29,7 +29,8 @@
       "pre-push": "npm run commit-ready"
     }
   },
-  "Authors": [
+  "author": "mimik technology inc <support@mimik.com> (https://developer.mimik.com/)",
+  "contributors": [
     {
       "name": "Kevin",
       "email": "kevin.toor@mimik.com"
