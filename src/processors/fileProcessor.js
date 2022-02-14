@@ -61,6 +61,8 @@ const deployFile = (fileDetails, correlationId) => {
         const form = new FormData();
         const streamKey = findKey(destinationLink.formData, (val) => val === STREAM);
         if (streamKey) form.append(streamKey, fs.createReadStream(filePath));
+        else throw getRichError('Parameter', 'streamKey not present in formData', { originLink }, err, false, correlationId);
+
         Object.keys(destinationLink.formData, (key) => {
           if (streamKey && key === streamKey) return undefined;
           form.append(key, destinationLink.formData[key]);
@@ -85,10 +87,10 @@ const deployFile = (fileDetails, correlationId) => {
       }
       return options;
     })
+    .then(axios)
     .catch((err) => {
       throw getRichError('System', 'cannot fetch file from the fileLink', { originLink }, err, false, correlationId);
     })
-    .then(axios)
     .then((resp) => resp.data)
     .catch((err) => {
       throw getRichError('System', 'cannot deploy file to deploymentLink', { destinationLink }, err, false, correlationId);
