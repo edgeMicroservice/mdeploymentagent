@@ -17,8 +17,8 @@ const downloadFile = (requestOptions, fileOutputPath) => {
     ...requestOptions,
     responseType: 'stream',
   })
-  // ensure that the user can call `then()` only when the file has
-  // been downloaded entirely.
+    // ensure that the user can call `then()` only when the file has
+    // been downloaded entirely.
     .then((response) => new Promise((resolve, reject) => {
       response.data.pipe(writer);
       let error = null;
@@ -52,6 +52,9 @@ const deployFile = (fileDetails, correlationId) => {
     method,
     headers,
   }, filePath)
+    .catch((err) => {
+      throw getRichError('System', 'cannot fetch file from the fileLink', { originLink }, err, false, correlationId);
+    })
     .then(() => {
       const options = {
         url: destinationLink.url,
@@ -61,6 +64,8 @@ const deployFile = (fileDetails, correlationId) => {
         const form = new FormData();
         const streamKey = findKey(destinationLink.formData, (val) => val === STREAM);
         if (streamKey) form.append(streamKey, fs.createReadStream(filePath));
+        else throw getRichError('Parameter', 'streamKey not present in formData', { originLink }, err, false, correlationId);
+
         Object.keys(destinationLink.formData, (key) => {
           if (streamKey && key === streamKey) return undefined;
           form.append(key, destinationLink.formData[key]);
@@ -84,9 +89,6 @@ const deployFile = (fileDetails, correlationId) => {
         }
       }
       return options;
-    })
-    .catch((err) => {
-      throw getRichError('System', 'cannot fetch file from the fileLink', { originLink }, err, false, correlationId);
     })
     .then(axios)
     .then((resp) => resp.data)
