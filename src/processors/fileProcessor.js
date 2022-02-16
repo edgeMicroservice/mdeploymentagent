@@ -7,6 +7,8 @@ const FormData = require('form-data');
 const logger = require('@mimik/sumologic-winston-logger');
 const { getRichError } = require('@mimik/response-helper');
 
+const { maxFileSize } = require('../configuration/config');
+
 const STREAM = '$file.stream';
 const BASE64 = '$file.base64';
 
@@ -16,9 +18,9 @@ const downloadFile = (requestOptions, fileOutputPath) => {
   return axios({
     ...requestOptions,
     responseType: 'stream',
+    maxBodyLength: maxFileSize,
+    maxContentLength: maxFileSize,
   })
-    // ensure that the user can call `then()` only when the file has
-    // been downloaded entirely.
     .then((response) => new Promise((resolve, reject) => {
       response.data.pipe(writer);
       let error = null;
@@ -59,6 +61,8 @@ const deployFile = (fileDetails, correlationId) => {
       const options = {
         url: destinationLink.url,
         method: destinationLink.method,
+        maxBodyLength: maxFileSize,
+        maxContentLength: maxFileSize,
       };
       if (destinationLink.formData) {
         const form = new FormData();
@@ -88,12 +92,11 @@ const deployFile = (fileDetails, correlationId) => {
           options.data[base64Key] = fs.createReadStream(filePath, { encoding: 'base64' });
         }
       }
-      return options;
-    })
-    .then(axios)
-    .then((resp) => resp.data)
-    .catch((err) => {
-      throw getRichError('System', 'cannot deploy file to deploymentLink', { destinationLink }, err, false, correlationId);
+      return axios(options)
+        .then((resp) => resp.data)
+        .catch((err) => {
+          throw getRichError('System', 'cannot deploy file to deploymentLink', { destinationLink }, err, false, correlationId);
+        });
     })
     .finally(removeFile);
 };
